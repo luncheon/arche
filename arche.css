@@ -1,0 +1,27 @@
+.arche {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arche[data-mode=erase] > .arche-drawing > path:hover {
+  stroke: #f43;
+}
+
+.arche-grid > circle {
+  r: .125;
+  fill: currentColor;
+  fill-opacity: .4;
+  stroke: none;
+}
+
+.arche:not([data-mode=erase]) > .arche-grid > .arche-grid-point-hover {
+  r: .5;
+  fill: #08f;
+  fill-opacity: 1;
+}
+
+.arche-new {
+  stroke: #08f;
+}

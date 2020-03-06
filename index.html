@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Arche - non-designer's icon designer</title>
+    <link rel="stylesheet" href="arche.css">
+    <style>
+      body {
+        width: 480px;
+        margin: auto;
+      }
+      .arche {
+        display: block;
+        width: 480px;
+        height: 480px;
+      }
+      label {
+        display: inline-flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <label><input type="radio" name="mode" value="line">直線</label>
+    <label><input type="radio" name="mode" value="arc">円弧</label>
+    <label><input type="radio" name="mode" value="erase">消去</label>
+    <script type="module">
+      import { Arche } from './arche.js'
+      const arche = new Arche()
+      document.body.appendChild(arche.svg)
+      document.addEventListener('change', function (e) {
+        if (e.target.name === 'mode') {
+          arche.mode = e.target.value
+        }
+      })
+      document.querySelector('[name=mode][value=' + arche.mode + ']').checked = true
+    </script>
+  </body>
+</html>
