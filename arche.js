@@ -1,29 +1,25 @@
 export class Arche {
     constructor(options) {
         this.options = options;
-        this.maxX = 24;
-        this.maxY = 24;
-        this.strokeWidth = 1;
         this.data = this.options?.data?.map(shape => [...shape]) ?? [];
-        this._mode = 'line';
-        this.svg = this._createSvgElement('svg', 'arche', {
-            viewBox: this._viewBox(),
-            mode: this.mode,
-            strokeWidth: this.strokeWidth,
-        });
+        this.svg = this._createSvgElement('svg', 'arche', { strokeWidth: 1 });
         this.grid = this.svg.appendChild(this._createSvgElement('g', 'arche-grid'));
         this.drawing = this.svg.appendChild(this._createSvgElement('g', 'arche-drawing'));
         this._newShapeElement = this.svg.appendChild(this._createSvgElement('path', 'arche-new'));
-        this._onPointerDown = (event) => {
-            if (!event.isPrimary || event.button !== 0) {
+        this._hoverClass = matchMedia('(hover:hover)') ? 'arche-grid-point-hover' : '';
+        this._preventDefault = (event) => event.preventDefault();
+        this._onClick = (event) => {
+            if (event.button !== 0 || this.mode !== 'erase') {
                 return;
             }
-            if (this.mode === 'erase') {
-                const index = +event.target.getAttribute('data-index');
-                if (this.data[index]) {
-                    this.data.splice(index, 1);
-                    this.render();
-                }
+            const index = +(event.target.getAttribute('data-index') ?? -1);
+            if (this.data[index]) {
+                this.data.splice(index, 1);
+                this.render();
+            }
+        };
+        this._onPointerDown = (event) => {
+            if (!event.isPrimary || event.button !== 0 || this.mode === 'erase') {
                 return;
             }
             const p = this._svgPointFromClient(event.clientX, event.clientY);
@@ -39,8 +35,10 @@ export class Arche {
             if (!p) {
                 return;
             }
-            for (let gridPoint = this.grid.firstElementChild; gridPoint; gridPoint = gridPoint.nextElementSibling) {
-                gridPoint.classList.toggle('arche-grid-point-hover', gridPoint.cx.baseVal.value === p.x && gridPoint.cy.baseVal.value === p.y);
+            const { grid, _hoverClass: hoverClass } = this;
+            if (hoverClass) {
+                grid.getElementsByClassName(hoverClass)[0]?.classList.remove(hoverClass);
+                grid.querySelector(`[cx="${p.x}"][cy="${p.y}"]`)?.classList.add(hoverClass);
             }
             if (this._newShapeData && this.svg.hasPointerCapture(event.pointerId)) {
                 const [x1, y1] = this._newShapeData;
@@ -64,26 +62,39 @@ export class Arche {
             this._onPointerCancel(event);
         };
         this._onPointerLeave = () => {
-            for (let gridPoint = this.grid.firstElementChild; gridPoint; gridPoint = gridPoint.nextElementSibling) {
-                gridPoint.classList.remove('arche-grid-point-hover');
+            const { _hoverClass: hoverClass } = this;
+            if (hoverClass) {
+                this.grid.getElementsByClassName(hoverClass)[0]?.classList.remove(hoverClass);
             }
         };
-        for (let cy = 1; cy <= this.maxY; cy++) {
-            for (let cx = 1; cx <= this.maxX; cx++) {
-                this.grid.appendChild(this._createSvgElement('circle', '', { cx, cy }));
-            }
-        }
+        this.size = 24;
+        this.mode = 'line';
+        this.svg.addEventListener('contextmenu', this._preventDefault);
+        this.svg.addEventListener('click', this._onClick);
         this.svg.addEventListener('pointerdown', this._onPointerDown);
         this.svg.addEventListener('pointermove', this._onPointerMove);
         this.svg.addEventListener('pointercancel', this._onPointerCancel);
         this.svg.addEventListener('pointerup', this._onPointerUp);
         this.svg.addEventListener('pointerleave', this._onPointerLeave);
+        this.render();
+    }
+    get size() {
+        return this.svg.viewBox.baseVal.width;
+    }
+    set size(size) {
+        this.svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+        for (let cy = 1; cy < size; cy++) {
+            const row = this.grid.appendChild(this._createSvgElement('g', 'arche-grid-row'));
+            for (let cx = 1; cx < size; cx++) {
+                row.appendChild(this._createSvgElement('circle', 'arche-grid-point', { cx, cy }));
+            }
+        }
     }
     get mode() {
-        return this._mode;
+        const mode = this.svg.getAttribute('data-mode');
+        return mode === 'line' || mode === 'arc' || mode === 'erase' ? mode : 'line';
     }
     set mode(mode) {
-        this._mode = mode;
         this.svg.setAttribute('data-mode', mode);
     }
     render() {
@@ -91,10 +102,6 @@ export class Arche {
         for (let i = 0; i < this.data.length; i++) {
             this.drawing.appendChild(this._createSvgElement('path', '', { 'data-index': i, d: this._path(this.data[i]) }));
         }
-    }
-    _viewBox() {
-        const halfStrokeWidth = this.strokeWidth / 2;
-        return `${halfStrokeWidth} ${halfStrokeWidth} ${this.maxX + halfStrokeWidth} ${this.maxY + halfStrokeWidth}`;
     }
     _createSvgElement(qualifiedName, className, attributes) {
         const element = document.createElementNS('http://www.w3.org/2000/svg', qualifiedName);
@@ -116,6 +123,6 @@ export class Arche {
         p = p.matrixTransform(this.svg.getScreenCTM().inverse());
         p.x = Math.round(p.x);
         p.y = Math.round(p.y);
-        return 1 <= p.x && p.x <= this.maxX && 1 <= p.y && p.y <= this.maxY ? p : undefined;
+        return 0 < p.x && p.x < this.size && 0 < p.y && p.y < this.size ? p : undefined;
     }
 }

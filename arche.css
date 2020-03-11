@@ -1,25 +1,36 @@
 .arche {
+  touch-action: none;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.arche[data-mode=erase] > .arche-drawing > path:hover {
-  stroke: #f43;
-}
-
-.arche-grid > circle {
-  r: .125;
-  fill: currentColor;
-  fill-opacity: .4;
+.arche-grid {
   stroke: none;
+  fill: hsla(0, 0%, 50%, .2);
 }
-
-.arche:not([data-mode=erase]) > .arche-grid > .arche-grid-point-hover {
+.arche-grid-point {
+  r: .125;
+}
+.arche-grid-row:nth-child(even) > :nth-child(even) {
+  fill: hsla(0, 0%, 50%, .6);
+}
+:root:root .arche-grid-point-hover {
   r: .5;
   fill: #08f;
-  fill-opacity: 1;
+}
+
+.arche[data-mode=line],
+.arche[data-mode=arc] {
+  cursor: crosshair;
+}
+
+.arche[data-mode=erase] > .arche-drawing > path {
+  cursor: pointer;
+}
+.arche[data-mode=erase] > .arche-drawing > path:hover {
+  stroke: #f43;
 }
 
 .arche-new {
