@@ -10,6 +10,7 @@ export class Arche {
   grid = this.svg.appendChild(this._createSvgElement('g', 'arche-grid'))
   drawing = this.svg.appendChild(this._createSvgElement('g', 'arche-drawing'))
 
+  private _erasing = false
   private _newShapeData: ArcheShape | undefined
   private _newShapeElement = this.svg.appendChild(this._createSvgElement('path', 'arche-new'))
 
@@ -39,8 +40,8 @@ export class Arche {
   constructor(private readonly options?: ArcheOptions) {
     this.size = 24
     this.mode = 'line'
-    this.svg.addEventListener('contextmenu', this._preventDefault)
-    this.svg.addEventListener('click', this._onClick)
+    this.svg.addEventListener('contextmenu', e => e.preventDefault())
+    this.svg.addEventListener('pointerover', this._onPointerOver)
     this.svg.addEventListener('pointerdown', this._onPointerDown)
     this.svg.addEventListener('pointermove', this._onPointerMove)
     this.svg.addEventListener('pointercancel', this._onPointerCancel)
@@ -81,21 +82,13 @@ export class Arche {
     return 0 < p.x && p.x < this.size && 0 < p.y && p.y < this.size ? p : undefined
   }
 
-  private _preventDefault = (event: Event) => event.preventDefault()
-
-  private _onClick = (event: MouseEvent) => {
-    if (event.button !== 0 || this.mode !== 'erase') {
+  private _onPointerDown = (event: PointerEvent) => {
+    if (!event.isPrimary || event.button !== 0) {
       return
     }
-    const index = +((event.target as Element).getAttribute('data-index') ?? -1)
-    if (this.data[index]) {
-      this.data.splice(index, 1)
-      this.render()
-    }
-}
-
-  private _onPointerDown = (event: PointerEvent) => {
-    if (!event.isPrimary || event.button !== 0 || this.mode === 'erase') {
+    if (this.mode === 'erase') {
+      this._erasing = true
+      this._onPointerOver(event)
       return
     }
     const p = this._svgPointFromClient(event.clientX, event.clientY)
@@ -107,7 +100,20 @@ export class Arche {
     this.svg.setPointerCapture(event.pointerId)
   }
 
+  private _onPointerOver = (event: PointerEvent) => {
+    if (this._erasing) {
+      const index = +((event.target as Element).getAttribute('data-index') ?? -1)
+      if (this.data[index]) {
+        this.data.splice(index, 1)
+        this.render()
+      }
+    }
+  }
+
   private _onPointerMove = (event: PointerEvent) => {
+    if (this.mode === 'erase') {
+      return
+    }
     const p = this._svgPointFromClient(event.clientX, event.clientY)
     if (!p) {
       return
@@ -125,20 +131,18 @@ export class Arche {
     }
   }
 
-  private _onPointerCancel = (event: PointerEvent) => {
-    if (this.svg.hasPointerCapture(event.pointerId)) {
-      this._newShapeData = undefined
-      this._newShapeElement.removeAttribute('d')
-      this.svg.releasePointerCapture(event.pointerId)
-    }
+  private _onPointerCancel = () => {
+    this._erasing = false
+    this._newShapeData = undefined
+    this._newShapeElement.removeAttribute('d')
   }
 
-  private _onPointerUp = (event: PointerEvent) => {
+  private _onPointerUp = () => {
     if (this._newShapeData) {
       this.data.push(this._newShapeData)
       this.render()
     }
-    this._onPointerCancel(event)
+    this._onPointerCancel()
   }
 
   private _onPointerLeave = () => {

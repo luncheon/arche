@@ -8,6 +8,7 @@ export declare class Arche {
     svg: SVGSVGElement;
     grid: SVGGElement;
     drawing: SVGGElement;
+    private _erasing;
     private _newShapeData;
     private _newShapeElement;
     private _hoverClass;
@@ -20,9 +21,8 @@ export declare class Arche {
     private _createSvgElement;
     private _path;
     private _svgPointFromClient;
-    private _preventDefault;
-    private _onClick;
     private _onPointerDown;
+    private _onPointerOver;
     private _onPointerMove;
     private _onPointerCancel;
     private _onPointerUp;

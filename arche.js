@@ -5,21 +5,16 @@ export class Arche {
         this.svg = this._createSvgElement('svg', 'arche', { strokeWidth: 1 });
         this.grid = this.svg.appendChild(this._createSvgElement('g', 'arche-grid'));
         this.drawing = this.svg.appendChild(this._createSvgElement('g', 'arche-drawing'));
+        this._erasing = false;
         this._newShapeElement = this.svg.appendChild(this._createSvgElement('path', 'arche-new'));
         this._hoverClass = matchMedia('(hover:hover)') ? 'arche-grid-point-hover' : '';
-        this._preventDefault = (event) => event.preventDefault();
-        this._onClick = (event) => {
-            if (event.button !== 0 || this.mode !== 'erase') {
+        this._onPointerDown = (event) => {
+            if (!event.isPrimary || event.button !== 0) {
                 return;
             }
-            const index = +(event.target.getAttribute('data-index') ?? -1);
-            if (this.data[index]) {
-                this.data.splice(index, 1);
-                this.render();
-            }
-        };
-        this._onPointerDown = (event) => {
-            if (!event.isPrimary || event.button !== 0 || this.mode === 'erase') {
+            if (this.mode === 'erase') {
+                this._erasing = true;
+                this._onPointerOver(event);
                 return;
             }
             const p = this._svgPointFromClient(event.clientX, event.clientY);
@@ -30,7 +25,19 @@ export class Arche {
             this._newShapeElement.setAttribute('d', this._path(this._newShapeData));
             this.svg.setPointerCapture(event.pointerId);
         };
+        this._onPointerOver = (event) => {
+            if (this._erasing) {
+                const index = +(event.target.getAttribute('data-index') ?? -1);
+                if (this.data[index]) {
+                    this.data.splice(index, 1);
+                    this.render();
+                }
+            }
+        };
         this._onPointerMove = (event) => {
+            if (this.mode === 'erase') {
+                return;
+            }
             const p = this._svgPointFromClient(event.clientX, event.clientY);
             if (!p) {
                 return;
@@ -47,19 +54,17 @@ export class Arche {
                 this._newShapeElement.setAttribute('d', this._path(this._newShapeData));
             }
         };
-        this._onPointerCancel = (event) => {
-            if (this.svg.hasPointerCapture(event.pointerId)) {
-                this._newShapeData = undefined;
-                this._newShapeElement.removeAttribute('d');
-                this.svg.releasePointerCapture(event.pointerId);
-            }
+        this._onPointerCancel = () => {
+            this._erasing = false;
+            this._newShapeData = undefined;
+            this._newShapeElement.removeAttribute('d');
         };
-        this._onPointerUp = (event) => {
+        this._onPointerUp = () => {
             if (this._newShapeData) {
                 this.data.push(this._newShapeData);
                 this.render();
             }
-            this._onPointerCancel(event);
+            this._onPointerCancel();
         };
         this._onPointerLeave = () => {
             const { _hoverClass: hoverClass } = this;
@@ -69,8 +74,8 @@ export class Arche {
         };
         this.size = 24;
         this.mode = 'line';
-        this.svg.addEventListener('contextmenu', this._preventDefault);
-        this.svg.addEventListener('click', this._onClick);
+        this.svg.addEventListener('contextmenu', e => e.preventDefault());
+        this.svg.addEventListener('pointerover', this._onPointerOver);
         this.svg.addEventListener('pointerdown', this._onPointerDown);
         this.svg.addEventListener('pointermove', this._onPointerMove);
         this.svg.addEventListener('pointercancel', this._onPointerCancel);
