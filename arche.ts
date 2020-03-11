@@ -3,6 +3,8 @@ export interface ArcheOptions {
   readonly data?: readonly Readonly<ArcheShape>[]
 }
 
+const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value))
+
 export class Arche {
   data = this.options?.data?.map(shape => [...shape] as ArcheShape) ?? []
 
@@ -13,8 +15,12 @@ export class Arche {
   private _erasing = false
   private _newShapeData: ArcheShape | undefined
   private _newShapeElement = this.svg.appendChild(this._createSvgElement('path', 'arche-new'))
-
-  private _hoverClass = matchMedia('(hover:hover)') ? 'arche-grid-point-hover' : ''
+  private _clearTemporaryState = () => {
+    this._erasing = false
+    this._newShapeData = undefined
+    this._newShapeElement.removeAttribute('d')
+    this._hover()
+  }
 
   get size() {
     return this.svg.viewBox.baseVal.width
@@ -35,18 +41,18 @@ export class Arche {
   }
   set mode(mode: 'line' | 'arc' | 'erase') {
     this.svg.setAttribute('data-mode', mode)
+    this._clearTemporaryState()
   }
 
   constructor(private readonly options?: ArcheOptions) {
     this.size = 24
     this.mode = 'line'
     this.svg.addEventListener('contextmenu', e => e.preventDefault())
-    this.svg.addEventListener('pointerover', this._onPointerOver)
     this.svg.addEventListener('pointerdown', this._onPointerDown)
     this.svg.addEventListener('pointermove', this._onPointerMove)
-    this.svg.addEventListener('pointercancel', this._onPointerCancel)
     this.svg.addEventListener('pointerup', this._onPointerUp)
-    this.svg.addEventListener('pointerleave', this._onPointerLeave)
+    this.svg.addEventListener('pointercancel', this._clearTemporaryState)
+    this.svg.addEventListener('pointerleave', () => this._hover())
     this.render()
   }
 
@@ -77,9 +83,19 @@ export class Arche {
     p.x = clientX
     p.y = clientY
     p = p.matrixTransform(this.svg.getScreenCTM()!.inverse())
-    p.x = Math.round(p.x)
-    p.y = Math.round(p.y)
-    return 0 < p.x && p.x < this.size && 0 < p.y && p.y < this.size ? p : undefined
+    const max = this.size - 1
+    p.x = clamp(Math.round(p.x), 1, max)
+    p.y = clamp(Math.round(p.y), 1, max)
+    return p
+  }
+
+  private _hover(p?: { readonly x: number, readonly y: number }) {
+    const { grid } = this
+    const hoverClass = 'arche-grid-point-hover'
+    grid.getElementsByClassName(hoverClass)[0]?.classList.remove(hoverClass)
+    if (p) {
+      grid.querySelector(`[cx="${p.x}"][cy="${p.y}"]`)?.classList.add(hoverClass)
+    }
   }
 
   private _onPointerDown = (event: PointerEvent) => {
@@ -88,53 +104,35 @@ export class Arche {
     }
     if (this.mode === 'erase') {
       this._erasing = true
-      this._onPointerOver(event)
+      this._onPointerMove(event)
       return
     }
-    const p = this._svgPointFromClient(event.clientX, event.clientY)
-    if (!p) {
-      return
-    }
-    this._newShapeData = [p.x, p.y, p.x, p.y, 0, 0]
+    const { x, y } = this._svgPointFromClient(event.clientX, event.clientY)
+    this._newShapeData = [x, y, x, y, 0, 0]
     this._newShapeElement.setAttribute('d', this._path(this._newShapeData))
     this.svg.setPointerCapture(event.pointerId)
   }
 
-  private _onPointerOver = (event: PointerEvent) => {
-    if (this._erasing) {
-      const index = +((event.target as Element).getAttribute('data-index') ?? -1)
-      if (this.data[index]) {
-        this.data.splice(index, 1)
-        this.render()
-      }
-    }
-  }
-
   private _onPointerMove = (event: PointerEvent) => {
     if (this.mode === 'erase') {
+      if (this._erasing) {
+        const index = +(document.elementFromPoint(event.clientX, event.clientY)?.getAttribute('data-index') ?? -1)
+        if (this.data[index]) {
+          this.data.splice(index, 1)
+          this.render()
+        }
+      }
       return
     }
     const p = this._svgPointFromClient(event.clientX, event.clientY)
-    if (!p) {
-      return
-    }
-    const { grid, _hoverClass: hoverClass } = this
-    if (hoverClass) {
-      grid.getElementsByClassName(hoverClass)[0]?.classList.remove(hoverClass)
-      grid.querySelector(`[cx="${p.x}"][cy="${p.y}"]`)?.classList.add(hoverClass)
-    }
+    const { x, y } = p
+    this._hover(p)
     if (this._newShapeData && this.svg.hasPointerCapture(event.pointerId)) {
       const [x1, y1] = this._newShapeData
-      const r = this.mode === 'line' ? 0 : Math.sqrt((x1 - p.x) * (x1 - p.x) + (y1 - p.y) * (y1 - p.y)) / 2
-      this._newShapeData = [x1, y1, p.x, p.y, r, 0]
+      const r = this.mode === 'line' ? 0 : Math.sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y)) / 2
+      this._newShapeData = [x1, y1, x, y, r, 0]
       this._newShapeElement.setAttribute('d', this._path(this._newShapeData))
     }
-  }
-
-  private _onPointerCancel = () => {
-    this._erasing = false
-    this._newShapeData = undefined
-    this._newShapeElement.removeAttribute('d')
   }
 
   private _onPointerUp = () => {
@@ -142,13 +140,6 @@ export class Arche {
       this.data.push(this._newShapeData)
       this.render()
     }
-    this._onPointerCancel()
-  }
-
-  private _onPointerLeave = () => {
-    const { _hoverClass: hoverClass } = this
-    if (hoverClass) {
-      this.grid.getElementsByClassName(hoverClass)[0]?.classList.remove(hoverClass)
-    }
+    this._clearTemporaryState()
   }
 }

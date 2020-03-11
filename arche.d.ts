@@ -11,7 +11,7 @@ export declare class Arche {
     private _erasing;
     private _newShapeData;
     private _newShapeElement;
-    private _hoverClass;
+    private _clearTemporaryState;
     get size(): number;
     set size(size: number);
     get mode(): 'line' | 'arc' | 'erase';
@@ -21,10 +21,8 @@ export declare class Arche {
     private _createSvgElement;
     private _path;
     private _svgPointFromClient;
+    private _hover;
     private _onPointerDown;
-    private _onPointerOver;
     private _onPointerMove;
-    private _onPointerCancel;
     private _onPointerUp;
-    private _onPointerLeave;
 }
