@@ -18,7 +18,6 @@ export declare class Arche {
     set mode(mode: 'line' | 'arc' | 'erase');
     constructor(options?: ArcheOptions | undefined);
     render(): void;
-    private _createSvgElement;
     private _path;
     private _svgPointFromClient;
     private _hover;

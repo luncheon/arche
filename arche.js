@@ -1,13 +1,29 @@
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const clearClass = (ancestor, className) => {
+    const elements = ancestor.getElementsByClassName(className);
+    for (let i = elements.length - 1; i >= 0; i--) {
+        elements[i].classList.remove(className);
+    }
+};
+const createSvgElement = (qualifiedName, className, attributes) => {
+    const element = document.createElementNS('http://www.w3.org/2000/svg', qualifiedName);
+    className && element.setAttribute('class', className);
+    if (attributes) {
+        for (const a of Object.entries(attributes)) {
+            element.setAttribute(a[0], a[1]);
+        }
+    }
+    return element;
+};
 export class Arche {
     constructor(options) {
         this.options = options;
         this.data = this.options?.data?.map(shape => [...shape]) ?? [];
-        this.svg = this._createSvgElement('svg', 'arche', { strokeWidth: 1 });
-        this.grid = this.svg.appendChild(this._createSvgElement('g', 'arche-grid'));
-        this.drawing = this.svg.appendChild(this._createSvgElement('g', 'arche-drawing'));
+        this.svg = createSvgElement('svg', 'arche', { strokeWidth: 1 });
+        this.grid = this.svg.appendChild(createSvgElement('g', 'arche-grid'));
+        this.drawing = this.svg.appendChild(createSvgElement('g', 'arche-drawing'));
         this._erasing = false;
-        this._newShapeElement = this.svg.appendChild(this._createSvgElement('path', 'arche-new'));
+        this._newShapeElement = this.svg.appendChild(createSvgElement('path', 'arche-new'));
         this._clearTemporaryState = () => {
             this._erasing = false;
             this._newShapeData = undefined;
@@ -72,9 +88,9 @@ export class Arche {
     set size(size) {
         this.svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
         for (let cy = 1; cy < size; cy++) {
-            const row = this.grid.appendChild(this._createSvgElement('g', 'arche-grid-row'));
+            const row = this.grid.appendChild(createSvgElement('g', 'arche-grid-row'));
             for (let cx = 1; cx < size; cx++) {
-                row.appendChild(this._createSvgElement('circle', 'arche-grid-point', { cx, cy }));
+                row.appendChild(createSvgElement('circle', 'arche-grid-point', { cx, cy }));
             }
         }
     }
@@ -89,18 +105,8 @@ export class Arche {
     render() {
         this.drawing.innerHTML = '';
         for (let i = 0; i < this.data.length; i++) {
-            this.drawing.appendChild(this._createSvgElement('path', '', { 'data-index': i, d: this._path(this.data[i]) }));
+            this.drawing.appendChild(createSvgElement('path', '', { 'data-index': i, d: this._path(this.data[i]) }));
         }
-    }
-    _createSvgElement(qualifiedName, className, attributes) {
-        const element = document.createElementNS('http://www.w3.org/2000/svg', qualifiedName);
-        className && element.setAttribute('class', className);
-        if (attributes) {
-            for (const a of Object.entries(attributes)) {
-                element.setAttribute(a[0], a[1]);
-            }
-        }
-        return element;
     }
     _path([x1, y1, x2, y2, r, large]) {
         return `M${x1} ${y1} A${r} ${r} 0 ${large} 1 ${x2} ${y2}`;
@@ -118,8 +124,14 @@ export class Arche {
     _hover(p) {
         const { grid } = this;
         const hoverClass = 'arche-grid-point-hover';
-        grid.getElementsByClassName(hoverClass)[0]?.classList.remove(hoverClass);
+        const hoverRowClass = 'arche-grid-row-hover';
+        const hoverColClass = 'arche-grid-column-hover';
+        clearClass(grid, hoverClass);
+        clearClass(grid, hoverRowClass);
+        clearClass(grid, hoverColClass);
         if (p) {
+            grid.querySelectorAll(`[cx="${p.x}"]`).forEach(p => p.classList.add(hoverRowClass));
+            grid.querySelectorAll(`[cy="${p.y}"]`).forEach(p => p.classList.add(hoverColClass));
             grid.querySelector(`[cx="${p.x}"][cy="${p.y}"]`)?.classList.add(hoverClass);
         }
     }

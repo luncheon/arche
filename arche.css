@@ -8,17 +8,28 @@
 
 .arche-grid {
   stroke: none;
-  fill: hsla(0, 0%, 50%, .2);
+  fill: #888;
+  fill-opacity: .2;
 }
 .arche-grid-point {
   r: .125;
 }
 .arche-grid-row:nth-child(even) > :nth-child(even) {
-  fill: hsla(0, 0%, 50%, .6);
+  fill-opacity: .6;
+}
+
+.arche-grid-row-hover {
+  r: .25;
+  fill: #08f;
+}
+.arche-grid-column-hover {
+  r: .25;
+  fill: #08f;
 }
 :root:root .arche-grid-point-hover {
   r: .5;
   fill: #08f;
+  fill-opacity: 1;
 }
 
 .arche[data-mode=line],
