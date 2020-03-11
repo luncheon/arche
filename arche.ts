@@ -83,7 +83,7 @@ export class Arche {
   }
 
   private _onPointerDown = (event: PointerEvent) => {
-    if (!event.isPrimary || event.button !== 0) {
+    if (event.button !== 0) {
       return
     }
     if (this.mode === 'erase') {

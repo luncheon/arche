@@ -9,7 +9,7 @@ export class Arche {
         this._newShapeElement = this.svg.appendChild(this._createSvgElement('path', 'arche-new'));
         this._hoverClass = matchMedia('(hover:hover)') ? 'arche-grid-point-hover' : '';
         this._onPointerDown = (event) => {
-            if (!event.isPrimary || event.button !== 0) {
+            if (event.button !== 0) {
                 return;
             }
             if (this.mode === 'erase') {
