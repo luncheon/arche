@@ -1,0 +1,23 @@
+{
+  "name": "arche",
+  "source-directories": [
+    "source"
+  ],
+  "application": {
+    "name": "arche",
+    "title": "arche - non-designer's icon designer",
+    "orientation": "portrait",
+    "display": "standalone",
+    "theme-color": "#00aaff",
+    "head": "assets/head.html",
+    "meta": {
+      "charset": "utf-8",
+      "viewport": "width=device-width,initial-scale=1"
+    }
+  },
+  "external": {
+    "stylesheets": [
+      "assets/style.css"
+    ]
+  }
+}

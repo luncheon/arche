@@ -1,0 +1,11 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  flex: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: linear-gradient(45deg, hsl(208,60%,98%), hsl(208,60%,94%));
+  user-select: none;
+}
