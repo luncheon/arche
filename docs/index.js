@@ -4,7 +4,7 @@ var Mint=function(){"use strict";var t,e,n,r,o,i={},a=[],s=/acit|ex(?:s|g|n|p|$)
   const mint = Mint(_enums)
 
   const _normalizeEvent = function (event) {
-    return AQ.bz(mint.normalizeEvent(event))
+    return AR.ch(mint.normalizeEvent(event))
   };
 
   const _R = mint.createRecord;
@@ -44,10 +44,10 @@ var Mint=function(){"use strict";var t,e,n,r,o,i={},a=[],s=/acit|ex(?:s|g|n|p|$)
   }
 
   const _s = (item, callback) => {
-    if (item instanceof AF) {
+    if (item instanceof AG) {
       return item
-    } else if (item instanceof AE) {
-      return new AE(callback(item._0))
+    } else if (item instanceof AF) {
+      return new AF(callback(item._0))
     } else {
       return callback(item)
     }
@@ -55,64 +55,43 @@ var Mint=function(){"use strict";var t,e,n,r,o,i={},a=[],s=/acit|ex(?:s|g|n|p|$)
 
   class DoError extends Error {}
 
-  class AF extends _E{constructor(){super();this.length = 0}};class AE extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AT extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AS extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AL extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AM extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AB extends _E{constructor(){super();this.length = 0}};class AC extends _E{constructor(){super();this.length = 0}};class V extends _E{constructor(){super();this.length = 0}};const B = _R({height:["height",Decoder.number],bottom:["bottom",Decoder.number],width:["width",Decoder.number],right:["right",Decoder.number],left:["left",Decoder.number],top:["top",Decoder.number],x:["x",Decoder.number],y:["y",Decoder.number]});const C = _R({});const D = _R({});const E = _R({status:["status",Decoder.number],body:["body",Decoder.string]});const F = _R({});const G = _R({});const H = _R({});const I = _R({});const J = _R({});const K = _R({});const L = _R({});const M = _R({});const N = _R({});const O = _R({caseInsensitive:["caseInsensitive",Decoder.boolean],multiline:["multiline",Decoder.boolean],unicode:["unicode",Decoder.boolean],global:["global",Decoder.boolean],sticky:["sticky",Decoder.boolean]});const P = _R({submatches:["submatches",Decoder.array(Decoder.string)],match:["match",Decoder.string],index:["index",Decoder.number]});const Q = _R({hostname:["hostname",Decoder.string],protocol:["protocol",Decoder.string],origin:["origin",Decoder.string],search:["search",Decoder.string],path:["path",Decoder.string],hash:["hash",Decoder.string],host:["host",Decoder.string],port:["port",Decoder.string]});const R = _R({x:["x",Decoder.number],y:["y",Decoder.number]});const S = _R({p1:["p1",((_)=>R.decode(_))],p2:["p2",((_)=>R.decode(_))]});const T = _R({p1:["p1",((_)=>R.decode(_))],p2:["p2",((_)=>R.decode(_))],r:["r",Decoder.number],large:["large",Decoder.number]});const AH=new(class extends _M{bo(bq,bp){return ([...bp, bq])}ab(bs,br){return (br.map(bs))}bb(bu,bt){return (Array.from({ length: (bt + 1) - bu }).map((v, i) => i + bu))}bv(bw,bx){return ((() => {
-      if (bw < 0 || bw >= bx.length) { return bx }
-      const result = Array.from(bx)
-      result.splice(bw, 1)
+  class AG extends _E{constructor(){super();this.length = 0}};class AF extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AU extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AT extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AM extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AN extends _E{constructor(_0){super();this._0 = _0;this.length = 1}};class AC extends _E{constructor(){super();this.length = 0}};class AD extends _E{constructor(){super();this.length = 0}};class W extends _E{constructor(){super();this.length = 0}};const B = _R({height:["height",Decoder.number],bottom:["bottom",Decoder.number],width:["width",Decoder.number],right:["right",Decoder.number],left:["left",Decoder.number],top:["top",Decoder.number],x:["x",Decoder.number],y:["y",Decoder.number]});const C = _R({});const D = _R({});const E = _R({status:["status",Decoder.number],body:["body",Decoder.string]});const F = _R({});const G = _R({});const H = _R({});const I = _R({});const J = _R({});const K = _R({});const L = _R({});const M = _R({});const N = _R({});const O = _R({caseInsensitive:["caseInsensitive",Decoder.boolean],multiline:["multiline",Decoder.boolean],unicode:["unicode",Decoder.boolean],global:["global",Decoder.boolean],sticky:["sticky",Decoder.boolean]});const P = _R({submatches:["submatches",Decoder.array(Decoder.string)],match:["match",Decoder.string],index:["index",Decoder.number]});const Q = _R({hostname:["hostname",Decoder.string],protocol:["protocol",Decoder.string],origin:["origin",Decoder.string],search:["search",Decoder.string],path:["path",Decoder.string],hash:["hash",Decoder.string],host:["host",Decoder.string],port:["port",Decoder.string]});const R = _R({});const S = _R({x:["x",Decoder.number],y:["y",Decoder.number]});const T = _R({p1:["p1",((_)=>S.decode(_))],p2:["p2",((_)=>S.decode(_))]});const U = _R({p1:["p1",((_)=>S.decode(_))],p2:["p2",((_)=>S.decode(_))],r:["r",Decoder.number],large:["large",Decoder.number]});const AI=new(class extends _M{bw(by,bx){return ([...bx, by])}ab(ca,bz){return (bz.map(ca))}bk(cc,cb){return (Array.from({ length: (cb + 1) - cc }).map((v, i) => i + cc))}cd(ce,cf){return ((() => {
+      if (ce < 0 || ce >= cf.length) { return cf }
+      const result = Array.from(cf)
+      result.splice(ce, 1)
       return result
-    })())}});const AP=new(class extends _M{bl(by){return ((() => {
-      let value = by.value
+    })())}});const AP=new(class extends _M{be(cg){return ((() => {
+      let value = cg.value
 
       if (typeof value === "string") {
         return value
       } else {
         return ""
       }
-    })())}});const AQ=new(class extends _M{bz(ca){return new C({bubbles:(ca.bubbles),cancelable:(ca.cancelable),currentTarget:(ca.currentTarget),defaultPrevented:(ca.defaultPrevented),eventPhase:(ca.eventPhase),isTrusted:(ca.isTrusted),target:(ca.target),timeStamp:(ca.timeStamp),type:(ca.type),data:(ca.data),altKey:(ca.altKey),charCode:(ca.charCode),ctrlKey:(ca.ctrlKey),key:(ca.key),keyCode:(ca.keyCode),locale:(ca.locale),location:(ca.location),metaKey:(ca.metaKey),repeat:(ca.repeat),shiftKey:(ca.shiftKey),which:(ca.which),button:(ca.button),buttons:(ca.buttons),clientX:(ca.clientX),clientY:(ca.clientY),pageX:(ca.pageX),pageY:(ca.pageY),screenX:(ca.screenX),screenY:(ca.screenY),detail:(ca.detail),deltaMode:(ca.deltaMode),deltaX:(ca.deltaX),deltaY:(ca.deltaY),deltaZ:(ca.deltaZ),animationName:(ca.animationName),pseudoElement:(ca.pseudoElement),propertyName:(ca.propertyName),elapsedTime:(ca.elapsedTime),event:ca})}});const AJ=new(class extends _M{ak(){return (false)}});const AA=new(class extends _M{cb(cc,cd){return (Math.min(cc, cd))}ce(cf,cg){return (Math.max(cf, cg))}ch(ci){return (Math.sqrt(ci))}d(ck,cj,cl){return AA.cb(cj, AA.ce(ck, cl))}});const AR=new(class extends _M{cm(cp,cn){return (()=>{let co = cn;if(co instanceof AE){const cq = co._0;return new AE(cp(cq))} else if(co instanceof AF){return new AF()}})()}});const AD=new(class extends _M{p(){return AD.cr(null)}cr(cs){return (Promise.resolve(cs))}});const Z=new(class extends _M{c(cw,ct){return (()=>{let cu = ct;if(cu instanceof AS){const cv = cu._0;return cv} else if(cu instanceof AT){return cw}})()}});const AO=new(class extends _M{bk(cx){return (()=>{let cy = cx;if(_compare(cy, `arc`)){return new AC()} else if(_compare(cy, `eraser`)){return new V()} else{return new AB()}})()}});class U extends _C{constructor(props){super(props);this._d({e:[null,24]});this.state = new Record({u:new AF()})}$a(){const _={};(_compare(this.a, new V()) ? Object.assign(_, {[`--a-a`]:`arrow`}) : Object.assign(_, {[`--a-a`]:`none`}));return _}get u(){return this.state.u;}get ag(){return W.an;}get ah(){return X.ao;}n (...params) { return X.ap(...params); }o (...params) { return X.aq(...params); }t (...params) { return X.ar(...params); }x (...params) { return X.as(...params); }get a(){return Y.at;}componentWillUnmount(){W._unsubscribe(this);X._unsubscribe(this);Y._unsubscribe(this)}componentDidMount(){W._subscribe(this);X._subscribe(this);Y._subscribe(this)}b(f){return Z.c(new R({x:-1,y:-1}), ((_)=>R.decode(_))((((event) => {
+    })())}});const AR=new(class extends _M{ch(ci){return new C({bubbles:(ci.bubbles),cancelable:(ci.cancelable),currentTarget:(ci.currentTarget),defaultPrevented:(ci.defaultPrevented),eventPhase:(ci.eventPhase),isTrusted:(ci.isTrusted),target:(ci.target),timeStamp:(ci.timeStamp),type:(ci.type),data:(ci.data),altKey:(ci.altKey),charCode:(ci.charCode),ctrlKey:(ci.ctrlKey),key:(ci.key),keyCode:(ci.keyCode),locale:(ci.locale),location:(ci.location),metaKey:(ci.metaKey),repeat:(ci.repeat),shiftKey:(ci.shiftKey),which:(ci.which),button:(ci.button),buttons:(ci.buttons),clientX:(ci.clientX),clientY:(ci.clientY),pageX:(ci.pageX),pageY:(ci.pageY),screenX:(ci.screenX),screenY:(ci.screenY),detail:(ci.detail),deltaMode:(ci.deltaMode),deltaX:(ci.deltaX),deltaY:(ci.deltaY),deltaZ:(ci.deltaZ),animationName:(ci.animationName),pseudoElement:(ci.pseudoElement),propertyName:(ci.propertyName),elapsedTime:(ci.elapsedTime),event:ci})}});const AK=new(class extends _M{ak(){return (false)}});const AB=new(class extends _M{cj(ck,cl){return (Math.min(ck, cl))}cm(cn,co){return (Math.max(cn, co))}cp(cq){return (Math.sqrt(cq))}d(cs,cr,ct){return AB.cj(cr, AB.cm(cs, ct))}});const AS=new(class extends _M{cu(cx,cv){return (()=>{let cw = cv;if(cw instanceof AF){const cy = cw._0;return new AF(cx(cy))} else if(cw instanceof AG){return new AG()}})()}});const AE=new(class extends _M{p(){return AE.cz(null)}cz(da){return (Promise.resolve(da))}});const AA=new(class extends _M{c(de,db){return (()=>{let dc = db;if(dc instanceof AT){const dd = dc._0;return dd} else if(dc instanceof AU){return de}})()}});const AQ=new(class extends _M{bt(df){return (()=>{let dg = df;if(_compare(dg, `Arc`)){return new AD()} else if(_compare(dg, `Eraser`)){return new W()} else{return new AC()}})()}bq(dh){return (()=>{let di = dh;if(di instanceof AC){return `Line`} else if(di instanceof AD){return `Arc`} else if(di instanceof W){return `Eraser`}})()}});class V extends _C{constructor(props){super(props);this._d({e:[null,24]});this.state = new Record({u:new AG()})}$a(){const _={};(_compare(this.a, new W()) ? Object.assign(_, {[`--a-a`]:`arrow`}) : Object.assign(_, {[`--a-a`]:`none`}));return _}get u(){return this.state.u;}get ag(){return X.an;}get ah(){return Y.ao;}n (...params) { return Y.ap(...params); }o (...params) { return Y.aq(...params); }t (...params) { return Y.ar(...params); }x (...params) { return Y.as(...params); }get a(){return Z.at;}componentWillUnmount(){X._unsubscribe(this);Y._unsubscribe(this);Z._unsubscribe(this)}componentDidMount(){X._subscribe(this);Y._subscribe(this);Z._subscribe(this)}b(f){return AA.c(new S({x:-1,y:-1}), ((_)=>S.decode(_))((((event) => {
         const clientPoint = event.currentTarget.createSVGPoint()
         clientPoint.x = event.clientX
         clientPoint.y = event.clientY
         const svgPoint = clientPoint.matrixTransform(event.currentTarget.getScreenCTM().inverse())
-        svgPoint.x = ((..._) => AA.d(1, this.e - 1, ..._))(Math.round(svgPoint.x))
-        svgPoint.y = ((..._) => AA.d(1, this.e - 1, ..._))(Math.round(svgPoint.y))
+        svgPoint.x = ((..._) => AB.d(1, this.e - 1, ..._))(Math.round(svgPoint.x))
+        svgPoint.y = ((..._) => AB.d(1, this.e - 1, ..._))(Math.round(svgPoint.y))
         return svgPoint
-      })(f))))}g(i,j){return W.h((+(document.elementFromPoint(i, j)?.getAttribute('data-index') ?? -1)))}k(l){return (_compare(l.button, 0) ? (async()=>{let _ = null;try{await (l.currentTarget.setPointerCapture(l.event.pointerId));_ = await (()=>{let m = this.a;if(m instanceof V){return this.g(l.clientX, l.clientY)} else if(m instanceof AB){return this.n(this.b(l))} else if(m instanceof AC){return this.o(this.b(l))}})()}catch(_error){if(!(_error instanceof DoError)){console.warn(`Unhandled error in sequence expression:`);console.warn(_error)}};return _})() : AD.p())}q(r){return (_compare(this.a, new V()) ? ((r.currentTarget.hasPointerCapture(r.event.pointerId)) ? this.g(r.clientX, r.clientY) : AD.p()) : (async()=>{let _ = null;try{let s = await this.b(r);await ((r.currentTarget.hasPointerCapture(r.event.pointerId)) ? this.t(s) : AD.p());_ = await new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({u:new AE(s)})), _resolve)
-}))}catch(_error){if(!(_error instanceof DoError)){console.warn(`Unhandled error in sequence expression:`);console.warn(_error)}};return _})())}v(w){return ((w.currentTarget.hasPointerCapture(w.event.pointerId)) ? this.x() : AD.p())}y(z){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({u:new AF()})), _resolve)
-}))}render(){return _h("svg", {"viewBox":`0 0 ${this.e} ${this.e}`,"onPointerDown":(event => (this.k)(_normalizeEvent(event))),"onPointerMove":(event => (this.q)(_normalizeEvent(event))),"onPointerUp":(event => (this.v)(_normalizeEvent(event))),"onPointerLeave":(event => (this.y)(_normalizeEvent(event))),className:`a`,style:_style([this.$a(), `touch-action: none`])}, [_h(AG, {aa:this.e}),_h("g", {"stroke":`currentColor`,"stroke-linecap":`round`,"stroke-linejoin":`round`,"fill":`none`}, [AH.ab(((ac, ae)=>{return _h(AI, {ad:ac,af:ae})}), this.ag),(()=>{let ai = this.ah;if(ai instanceof AE){const aj = ai._0;return _h("g", {"stroke":`hsl(208, 100%, 50%)`}, [_h(AI, {ad:aj})])} else if(ai instanceof AF){return AJ.ak()}})()]),(!_compare(this.a, new V()) ? _h(AK, {al:this.e,am:this.u}) : null)])}};;class AI extends _C{constructor(props){super(props);this._d({ad:[null,new AL(new S({p1:new R({x:-1,y:-1}),p2:new R({x:-1,y:-1})}))],af:[null,-1]})}render(){return (()=>{let au = this.ad;if(au instanceof AL){const av = au._0;return _h("line", {"data-index":`${this.af}`,"x1":`${av.p1.x}`,"y1":`${av.p1.y}`,"x2":`${av.p2.x}`,"y2":`${av.p2.y}`})} else if(au instanceof AM){const aw = au._0;return _h("path", {"data-index":`${this.af}`,"d":`M${aw.p1.x} ${aw.p1.y}A${aw.r} ${aw.r} 0 ${aw.large} 1 ${aw.p2.x} ${aw.p2.y}`})}})()}};;class AG extends _C{constructor(props){super(props);this._d({aa:[null,0]})}$b(ax,ay){const _={};(_compare(ax % 2, 0) && _compare(ay % 2, 0) ? Object.assign(_, {[`--b-a`]:`hsla(0, 0%, 50%, .6)`}) : Object.assign(_, {[`--b-a`]:`hsla(0, 0%, 50%, .2)`}));return _}render(){return _h("g", {}, [(()=>{const _0 = [];const _1 = AH.bb(1, this.aa - 1);for(let ba of _1){_0.push(_h(React.Fragment, {}, [(()=>{const _0 = [];const _1 = AH.bb(1, this.aa - 1);for(let az of _1){_0.push(_h("circle", {"cx":`${az}`,"cy":`${ba}`,"r":`.125`,className:`b`,style:_style([this.$b(az,ba)])}))};return _0})()]))};return _0})()])}};;class AK extends _C{constructor(props){super(props);this._d({al:[null,0],am:[null,new AF()]})}render(){return (()=>{let bc = this.am;if(bc instanceof AE){const be = bc._0;return _h("g", {"fill":`hsl(208, 100%, 84%)`}, [(()=>{const _0 = [];const _1 = AH.bb(1, this.al - 1);for(let bd of _1){_0.push(_h("circle", {"cx":`${bd}`,"cy":`${be.y}`,"r":`.25`}))};return _0})(),(()=>{const _0 = [];const _1 = AH.bb(1, this.al - 1);for(let bf of _1){_0.push(_h("circle", {"cx":`${be.x}`,"cy":`${bf}`,"r":`.25`}))};return _0})(),_h("circle", {"cx":`${be.x}`,"cy":`${be.y}`,"r":`.5`,"fill":`hsl(208, 100%, 60%)`})])} else if(bc instanceof AF){return AJ.ak()}})()}};;class A extends _C{render(){return _h("main", {className:`c`}, [$a(),_h("div", {className:`d`}, [$b()])])}};;class AN extends _C{$e(bg){const _={};(bg ? Object.assign(_, {[`--c-a`]:`hsl(208, 100%, 84%)`}) : Object.assign(_, {[`--c-a`]:`white`}));(!bg ? Object.assign(_, {[`--d-a`]:`.3`}) : null);return _}get bm(){return Y.at;}bj (...params) { return Y.bn(...params); }componentWillUnmount(){Y._unsubscribe(this)}componentDidMount(){Y._subscribe(this)}bh(bi){return ((bi.target.checked) ? this.bj(AO.bk(AP.bl(bi.target))) : AD.p())}render(){return _h("div", {"onChange":(event => (this.bh)(_normalizeEvent(event)))}, [_h("label", {"title":`Line`,"data-ripplet":`color: hsla(208, 100%, 84%, .4)`,className:`e`,style:_style([this.$e(_compare(this.bm, new AB()))])}, [_h("input", {"type":`radio`,"name":`input-mode`,"value":`line`,"checked":_compare(this.bm, new AB())}),_h("svg", {"viewBox":`0 0 24 24`}, [_h("line", {"x1":`4`,"y1":`20`,"x2":`20`,"y2":`4`})])]),_h("label", {"title":`Arc`,"data-ripplet":`color: hsla(208, 100%, 84%, .4)`,className:`e`,style:_style([this.$e(_compare(this.bm, new AC()))])}, [_h("input", {"type":`radio`,"name":`input-mode`,"value":`arc`,"checked":_compare(this.bm, new AC())}),_h("svg", {"viewBox":`0 0 24 24`}, [_h("path", {"d":`M6 22A5 5 0 0 1 22 6`})])]),_h("label", {"title":`Eraser`,"data-ripplet":`color: hsla(208, 100%, 84%, .4)`,className:`e`,style:_style([this.$e(_compare(this.bm, new V()))])}, [_h("input", {"type":`radio`,"name":`input-mode`,"value":`eraser`,"checked":_compare(this.bm, new V())}),_h("svg", {"viewBox":`0 0 1000 1000`}, [_h("path", {"stroke-width":`40`,"d":`M535.6,783.4l14.1,14.1l381.8-381.8L612.2,96.3L230.3,478.2l14.1,14.1L131.3,605.4c-31.2,31.2-31.2,81.9,0,113.1L312.7,900 H760v-40H459L535.6,783.4z M612.2,152.9L875,415.7L549.7,741L286.9,478.2L612.2,152.9z M402.4,860h-73.1L159.6,690.3 c-15.6-15.6-15.6-41,0-56.6l113.1-113.1l234.6,234.6L402.4,860z`})])])])}};;const $a=_m(() => _h(AN, {}));const $b=_m(() => _h(U, {}));const W=new(class extends _S{constructor(){super();this.state={an:[]}}get an(){return this.state.an;}cz(da){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({an:AH.bo(da, this.an)})), _resolve)
-}))}h(db){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({an:AH.bv(db, this.an)})), _resolve)
-}))}});const Y=new(class extends _S{constructor(){super();this.state={at:new AB()}}get at(){return this.state.at;}bn(dc){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({at:dc})), _resolve)
-}))}});const X=new(class extends _S{constructor(){super();this.state={ao:new AF()}}get ao(){return this.state.ao;}ap(dd){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AE(new AL(new S({p1:dd,p2:dd})))})), _resolve)
-}))}aq(de){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AE(new AM(new T({p1:de,p2:de,r:0,large:0})))})), _resolve)
-}))}df(dg,dh){return AA.ch((dg.x - dh.x) * (dg.x - dh.x) + (dg.y - dh.y) * (dg.y - dh.y))}ar(dl){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:AR.cm(((di)=>{return (()=>{let dj = di;if(dj instanceof AL){const dk = dj._0;return new AL(_u(dk, {p2:dl}))} else if(dj instanceof AM){const dm = dj._0;return new AM(_u(dm, {p2:dl,r:X.df(dm.p1, dl) / 2}))}})()}), this.ao)})), _resolve)
-}))}as(){return (()=>{let dn = this.ao;if(dn instanceof AE){const dp = dn._0;return (async()=>{let _ = null;try{await W.cz(dp);_ = await new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AF()})), _resolve)
-}))}catch(_error){if(!(_error instanceof DoError)){console.warn(`Unhandled error in sequence expression:`);console.warn(_error)}};return _})()} else if(dn instanceof AF){return AD.p()}})()}dq(){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AF()})), _resolve)
+      })(f))))}g(i,j){return X.h((+(document.elementFromPoint(i, j)?.getAttribute('data-index') ?? -1)))}k(l){return (_compare(l.button, 0) ? (async()=>{let _ = null;try{await (l.currentTarget.setPointerCapture(l.event.pointerId));_ = await (()=>{let m = this.a;if(m instanceof W){return this.g(l.clientX, l.clientY)} else if(m instanceof AC){return this.n(this.b(l))} else if(m instanceof AD){return this.o(this.b(l))}})()}catch(_error){if(!(_error instanceof DoError)){console.warn(`Unhandled error in sequence expression:`);console.warn(_error)}};return _})() : AE.p())}q(r){return (_compare(this.a, new W()) ? ((r.currentTarget.hasPointerCapture(r.event.pointerId)) ? this.g(r.clientX, r.clientY) : AE.p()) : (async()=>{let _ = null;try{let s = await this.b(r);await ((r.currentTarget.hasPointerCapture(r.event.pointerId)) ? this.t(s) : AE.p());_ = await new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({u:new AF(s)})), _resolve)
+}))}catch(_error){if(!(_error instanceof DoError)){console.warn(`Unhandled error in sequence expression:`);console.warn(_error)}};return _})())}v(w){return ((w.currentTarget.hasPointerCapture(w.event.pointerId)) ? this.x() : AE.p())}y(z){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({u:new AG()})), _resolve)
+}))}render(){return _h("svg", {"viewBox":`0 0 ${this.e} ${this.e}`,"onPointerDown":(event => (this.k)(_normalizeEvent(event))),"onPointerMove":(event => (this.q)(_normalizeEvent(event))),"onPointerUp":(event => (this.v)(_normalizeEvent(event))),"onPointerLeave":(event => (this.y)(_normalizeEvent(event))),className:`a`,style:_style([this.$a(), `touch-action: none`])}, [_h(AH, {aa:this.e}),_h("g", {"stroke":`currentColor`,"stroke-linecap":`round`,"stroke-linejoin":`round`,"fill":`none`}, [AI.ab(((ac, ae)=>{return _h(AJ, {ad:ac,af:ae})}), this.ag),(()=>{let ai = this.ah;if(ai instanceof AF){const aj = ai._0;return _h("g", {"stroke":`hsl(208, 100%, 50%)`}, [_h(AJ, {ad:aj})])} else if(ai instanceof AG){return AK.ak()}})()]),(!_compare(this.a, new W()) ? _h(AL, {al:this.e,am:this.u}) : null)])}};;class AJ extends _C{constructor(props){super(props);this._d({ad:[null,new AM(new T({p1:new S({x:-1,y:-1}),p2:new S({x:-1,y:-1})}))],af:[null,-1]})}render(){return (()=>{let au = this.ad;if(au instanceof AM){const av = au._0;return _h("line", {"data-index":`${this.af}`,"x1":`${av.p1.x}`,"y1":`${av.p1.y}`,"x2":`${av.p2.x}`,"y2":`${av.p2.y}`})} else if(au instanceof AN){const aw = au._0;return _h("path", {"data-index":`${this.af}`,"d":`M${aw.p1.x} ${aw.p1.y}A${aw.r} ${aw.r} 0 ${aw.large} 1 ${aw.p2.x} ${aw.p2.y}`})}})()}};;class AO extends _C{constructor(props){super(props);this._d({ay:[null,``],bb:[null,[]],ba:[null,``],bd:[null,((bf)=>{return AE.p()})]})}$b(ax){const _={};(ax ? Object.assign(_, {[`--b-a`]:`hsl(208, 100%, 84%)`}) : Object.assign(_, {[`--b-a`]:`white`}));(!ax ? Object.assign(_, {[`--c-a`]:`.3`}) : null);return _}render(){return _h("div", {"onChange":(event => (((bc)=>{return ((bc.target.checked) ? this.bd(AP.be(bc.target)) : AE.p())}))(_normalizeEvent(event)))}, [(()=>{const _0 = [];const _1 = this.bb;for(let az of _1){_0.push(_h("label", {"title":az.title,"data-ripplet":`color: hsla(208, 100%, 84%, .4)`,className:`b`,style:_style([this.$b(_compare(az.value, this.ba))])}, [_h("input", {"type":`radio`,"name":this.ay,"value":az.value,"checked":_compare(az.value, this.ba)}),az.content]))};return _0})()])}};;class AH extends _C{constructor(props){super(props);this._d({aa:[null,0]})}$c(bg,bh){const _={};(_compare(bg % 2, 0) && _compare(bh % 2, 0) ? Object.assign(_, {[`--d-a`]:`hsla(0, 0%, 50%, .6)`}) : Object.assign(_, {[`--d-a`]:`hsla(0, 0%, 50%, .2)`}));return _}render(){return _h("g", {}, [(()=>{const _0 = [];const _1 = AI.bk(1, this.aa - 1);for(let bj of _1){_0.push(_h(React.Fragment, {}, [(()=>{const _0 = [];const _1 = AI.bk(1, this.aa - 1);for(let bi of _1){_0.push(_h("circle", {"cx":`${bi}`,"cy":`${bj}`,"r":`.125`,className:`c`,style:_style([this.$c(bi,bj)])}))};return _0})()]))};return _0})()])}};;class AL extends _C{constructor(props){super(props);this._d({al:[null,0],am:[null,new AG()]})}render(){return (()=>{let bl = this.am;if(bl instanceof AF){const bn = bl._0;return _h("g", {"fill":`hsl(208, 100%, 84%)`}, [(()=>{const _0 = [];const _1 = AI.bk(1, this.al - 1);for(let bm of _1){_0.push(_h("circle", {"cx":`${bm}`,"cy":`${bn.y}`,"r":`.25`}))};return _0})(),(()=>{const _0 = [];const _1 = AI.bk(1, this.al - 1);for(let bo of _1){_0.push(_h("circle", {"cx":`${bn.x}`,"cy":`${bo}`,"r":`.25`}))};return _0})(),_h("circle", {"cx":`${bn.x}`,"cy":`${bn.y}`,"r":`.5`,"fill":`hsl(208, 100%, 60%)`})])} else if(bl instanceof AG){return AK.ak()}})()}};;class A extends _C{get bp(){return [new R({value:AQ.bq(new AC()),title:`Line`,content:_h("svg", {"viewBox":`0 0 24 24`,className:`f`}, [_h("line", {"x1":`4`,"y1":`20`,"x2":`20`,"y2":`4`})])}), new R({value:AQ.bq(new AD()),title:`Arc`,content:_h("svg", {"viewBox":`0 0 24 24`,className:`f`}, [_h("path", {"d":`M6 22A5 5 0 0 1 22 6`})])}), new R({value:AQ.bq(new W()),title:`Eraser`,content:_h("svg", {"viewBox":`0 0 1000 1000`,className:`f`}, [_h("path", {"stroke-width":`40`,"d":`M535.6,783.4l14.1,14.1l381.8-381.8L612.2,96.3L230.3,478.2l14.1,14.1L131.3,605.4c-31.2,31.2-31.2,81.9,0,113.1L312.7,900 H760v-40H459L535.6,783.4z M612.2,152.9L875,415.7L549.7,741L286.9,478.2L612.2,152.9z M402.4,860h-73.1L159.6,690.3 c-15.6-15.6-15.6-41,0-56.6l113.1-113.1l234.6,234.6L402.4,860z`})])})];}get br(){return Z.at;}bs (...params) { return Z.bv(...params); }componentWillUnmount(){Z._unsubscribe(this)}componentDidMount(){Z._subscribe(this)}render(){return _h("main", {className:`d`}, [_h(AO, {ay:`input-mode`,bb:this.bp,ba:AQ.bq(this.br),bd:((bu)=>{return this.bs(AQ.bt(bu))})}),_h("div", {className:`e`}, [$a()])])}};;const $a=_m(() => _h(V, {}));const X=new(class extends _S{constructor(){super();this.state={an:[]}}get an(){return this.state.an;}dj(dk){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({an:AI.bw(dk, this.an)})), _resolve)
+}))}h(dl){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({an:AI.cd(dl, this.an)})), _resolve)
+}))}});const Z=new(class extends _S{constructor(){super();this.state={at:new AC()}}get at(){return this.state.at;}bv(dm){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({at:dm})), _resolve)
+}))}});const Y=new(class extends _S{constructor(){super();this.state={ao:new AG()}}get ao(){return this.state.ao;}ap(dn){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AF(new AM(new T({p1:dn,p2:dn})))})), _resolve)
+}))}aq(dp){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AF(new AN(new U({p1:dp,p2:dp,r:0,large:0})))})), _resolve)
+}))}dq(dr,ds){return AB.cp((dr.x - ds.x) * (dr.x - ds.x) + (dr.y - ds.y) * (dr.y - ds.y))}ar(dw){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:AS.cu(((dt)=>{return (()=>{let du = dt;if(du instanceof AM){const dv = du._0;return new AM(_u(dv, {p2:dw}))} else if(du instanceof AN){const dx = du._0;return new AN(_u(dx, {p2:dw,r:Y.dq(dx.p1, dw) / 2}))}})()}), this.ao)})), _resolve)
+}))}as(){return (()=>{let dy = this.ao;if(dy instanceof AF){const dz = dy._0;return (async()=>{let _ = null;try{await X.dj(dz);_ = await new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AG()})), _resolve)
+}))}catch(_error){if(!(_error instanceof DoError)){console.warn(`Unhandled error in sequence expression:`);console.warn(_error)}};return _})()} else if(dy instanceof AG){return AE.p()}})()}ea(){return new Promise(((_resolve)=>{this.setState(_u(this.state, new Record({ao:new AG()})), _resolve)
 }))}});_insertStyles(`
 .a {
   cursor: var(--a-a);
 }
 
 .b {
-  fill: var(--b-a);
-}
-
-.c {
-  display: block;
-  width: calc(100vmin - 80px);
-  height: 100vh;
-  max-width: 480px;
-  margin: auto;
-}
-
-.d {
-  width: calc(100vmin - 80px);
-  height: calc(100vmin - 80px);
-  max-width: 480px;
-  max-height: 480px;
-  background: white;
-  box-shadow: 8px 8px 16px rgba(0,0,0,.1), -8px -8px 16px rgba(255,255,255,.5);
-}
-
-.e {
   margin: 12px 8px;
   padding: 8px;
   cursor: pointer;
@@ -121,14 +100,39 @@ var Mint=function(){"use strict";var t,e,n,r,o,i={},a=[],s=/acit|ex(?:s|g|n|p|$)
   border-radius: 8px;
   border: 1px solid hsl(208, 60%, 90%);
   transition: background .3s ease-out;
-  background: var(--c-a);
+  background: var(--b-a);
 }
 
-.e > input {
+.b > input {
   display: none;
 }
 
-.e > svg {
+.b > * {
+  opacity: var(--c-a);
+}
+
+.c {
+  fill: var(--d-a);
+}
+
+.d {
+  display: block;
+  width: calc(100vmin - 80px);
+  height: 100vh;
+  max-width: 480px;
+  margin: auto;
+}
+
+.e {
+  width: calc(100vmin - 80px);
+  height: calc(100vmin - 80px);
+  max-width: 480px;
+  max-height: 480px;
+  background: white;
+  box-shadow: 8px 8px 16px rgba(0,0,0,.1), -8px -8px 16px rgba(255,255,255,.5);
+}
+
+.f {
   width: 24px;
   height: 24px;
   fill: none;
@@ -136,19 +140,18 @@ var Mint=function(){"use strict";var t,e,n,r,o,i={},a=[],s=/acit|ex(?:s|g|n|p|$)
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: var(--d-a);
 }
 `)
 
-  const Nothing = AF
-  const Just = AE
-  const Err = AT
-  const Ok = AS
+  const Nothing = AG
+  const Just = AF
+  const Err = AU
+  const Ok = AT
 
-  _enums.nothing = AF
-  _enums.just = AE
-  _enums.err = AT
-  _enums.ok = AS
+  _enums.nothing = AG
+  _enums.just = AF
+  _enums.err = AU
+  _enums.ok = AT
 
   
 _program.render(A, {})

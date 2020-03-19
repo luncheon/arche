@@ -7,9 +7,17 @@ enum InputMode {
 module InputMode {
   fun fromString (s : String) : InputMode {
     case (s) {
-      "arc" => InputMode::Arc
-      "eraser" => InputMode::Eraser
+      "Arc" => InputMode::Arc
+      "Eraser" => InputMode::Eraser
       => InputMode::Line
+    }
+  }
+
+  fun toString (inputMode : InputMode) : String {
+    case (inputMode) {
+      InputMode::Line => "Line"
+      InputMode::Arc => "Arc"
+      InputMode::Eraser => "Eraser"
     }
   }
 }
