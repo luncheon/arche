@@ -28,7 +28,7 @@ component Main {
 }
 
 component SelectInputModeComponent {
-  connect Ui exposing { inputMode }
+  connect Stores.Ui exposing { inputMode, setInputMode }
 
   style radio (active : Bool) {
     margin: 12px 8px;
@@ -67,8 +67,7 @@ component SelectInputModeComponent {
 
   fun onChange (event : Html.Event) : Promise(Never, Void) {
     if (`#{event.target}.checked`) {
-      Ui.setInputMode(
-        InputMode.fromString(Dom.getValue(event.target)))
+      setInputMode(InputMode.fromString(Dom.getValue(event.target)))
     } else {
       Promise.never()
     }

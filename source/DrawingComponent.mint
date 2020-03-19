@@ -1,6 +1,11 @@
 component DrawingComponent {
-  connect Data exposing { size, shapes }
-  connect Ui exposing { hoveredPoint, inputMode, newShape }
+  connect Stores.Shapes exposing { shapes }
+  connect Stores.NewShape exposing { newShape, startCreatingLine, startCreatingArc, moveCreatingShapeEndPoint, completeCreatingShape }
+  connect Stores.Ui exposing { inputMode }
+
+  property size : Number = 24
+
+  state hoveredPoint : Maybe(Point) = Maybe::Nothing
 
   style svg {
     if (inputMode == InputMode::Eraser) {
@@ -29,8 +34,8 @@ component DrawingComponent {
   }
 
   fun eraseShapeByClientPoint (clientX : Number, clientY : Number) : Promise(Never, Void) {
-    Data.removeShapeAt(
-      `+(document.elementFromPoint(event.clientX, event.clientY)?.getAttribute('data-index') ?? -1)`)
+    Stores.Shapes.removeShapeAt(
+      `+(document.elementFromPoint(#{clientX}, #{clientY})?.getAttribute('data-index') ?? -1)`)
   }
 
   fun onPointerDown (event : Html.Event) : Promise(Never, Void) {
@@ -38,10 +43,10 @@ component DrawingComponent {
       sequence {
         `#{event.currentTarget}.setPointerCapture(#{event}.event.pointerId)`
 
-        if (inputMode == InputMode::Eraser) {
-          eraseShapeByClientPoint(event.clientX, event.clientY)
-        } else {
-          Ui.startCreatingShape(svgPointFromEvent(event))
+        case (inputMode) {
+          InputMode::Eraser => eraseShapeByClientPoint(event.clientX, event.clientY)
+          InputMode::Line => startCreatingLine(svgPointFromEvent(event))
+          InputMode::Arc => startCreatingArc(svgPointFromEvent(event))
         }
       }
     } else {
@@ -62,22 +67,26 @@ component DrawingComponent {
           svgPointFromEvent(event)
 
         if (`#{event.currentTarget}.hasPointerCapture(#{event}.event.pointerId)`) {
-          Ui.moveCreatingShapeEndPoint(p)
+          moveCreatingShapeEndPoint(p)
         } else {
           Promise.never()
         }
 
-        Ui.hoverPoint(p)
+        next { hoveredPoint = Maybe::Just(p) }
       }
     }
   }
 
   fun onPointerUp (event : Html.Event) : Promise(Never, Void) {
     if (`#{event.currentTarget}.hasPointerCapture(#{event}.event.pointerId)`) {
-      Ui.completeCreatingShapeEndPoint()
+      completeCreatingShape()
     } else {
       Promise.never()
     }
+  }
+
+  fun onPointerLeave (event : Html.Event) : Promise(Never, Void) {
+    next { hoveredPoint = Maybe::Nothing }
   }
 
   fun render : Html {
@@ -86,7 +95,7 @@ component DrawingComponent {
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      onPointerLeave={Ui.leave}
+      onPointerLeave={onPointerLeave}
       style="touch-action: none">
 
       <GridComponent size={size}/>
@@ -97,14 +106,24 @@ component DrawingComponent {
         stroke-linejoin="round"
         fill="none">
 
-        <{ Array.mapWithIndex(Shape.render, shapes) }>
+        <{
+          shapes
+          |> Array.mapWithIndex(
+            (shape : Shape, index : Number) : Html {
+              <ShapeComponent
+                shape={shape}
+                index={index}/>
+            })
+        }>
 
-        <g stroke="hsl(208, 100%, 50%)">
-          case (newShape) {
-            Maybe::Just shape => Shape.render(shape, -1)
-            Maybe::Nothing => Html.empty()
-          }
-        </g>
+        case (newShape) {
+          Maybe::Just shape =>
+            <g stroke="hsl(208, 100%, 50%)">
+              <ShapeComponent shape={shape}/>
+            </g>
+
+          Maybe::Nothing => Html.empty()
+        }
 
       </g>
 
@@ -115,5 +134,39 @@ component DrawingComponent {
       }
 
     </svg>
+  }
+}
+
+component ShapeComponent {
+  property shape : Shape = Shape::Line({
+    p1 =
+      {
+        x = -1,
+        y = -1
+      },
+    p2 =
+      {
+        x = -1,
+        y = -1
+      }
+  })
+
+  property index : Number = -1
+
+  fun render : Html {
+    case (shape) {
+      Shape::Line line =>
+        <line
+          data-index="#{index}"
+          x1="#{line.p1.x}"
+          y1="#{line.p1.y}"
+          x2="#{line.p2.x}"
+          y2="#{line.p2.y}"/>
+
+      Shape::Arc arc =>
+        <path
+          data-index="#{index}"
+          d="M#{arc.p1.x} #{arc.p1.y}A#{arc.r} #{arc.r} 0 #{arc.large} 1 #{arc.p2.x} #{arc.p2.y}"/>
+    }
   }
 }
