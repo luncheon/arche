@@ -14,7 +14,6 @@ component RadioGroupComponent {
 
   style label (active : Bool) {
     margin: 12px 8px;
-    padding: 8px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;

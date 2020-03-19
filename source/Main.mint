@@ -1,4 +1,5 @@
 component Main {
+  connect Stores.Shapes exposing { asDataUri }
   connect Stores.Ui exposing { inputMode, setInputMode }
 
   style main {
@@ -19,13 +20,30 @@ component Main {
   }
 
   style icon {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+
+  style preview-container {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    margin: 12px 8px;
+    background-color: white;
+    outline: 1px solid hsl(208, 60%, 90%);
+  }
+
+  style preview {
+    width: 16px;
+    height: 16px;
+    display: block;
+    outline: 1px dotted hsl(208, 60%, 90%);
   }
 
   const OPTIONS = [
@@ -63,15 +81,26 @@ component Main {
 
   fun render : Html {
     <main::main>
-      <RadioGroupComponent
-        name="input-mode"
-        options={OPTIONS}
-        selectedValue={InputMode.toString(inputMode)}
-        onChange={
-          (value : String) : Promise(Never, Void) {
-            setInputMode(InputMode.fromString(value))
-          }
-        }/>
+      <div style="display: flex">
+        <RadioGroupComponent
+          name="input-mode"
+          options={OPTIONS}
+          selectedValue={InputMode.toString(inputMode)}
+          onChange={
+            (value : String) : Promise(Never, Void) {
+              setInputMode(InputMode.fromString(value))
+            }
+          }/>
+
+        <div style="flex: auto"/>
+
+        <div::preview-container>
+          <img::preview
+            tabindex="0"
+            alt="Download SVG file from context menu"
+            src={asDataUri}/>
+        </div>
+      </div>
 
       <div::drawing>
         <DrawingComponent/>

@@ -1,9 +1,7 @@
 component DrawingComponent {
-  connect Stores.Shapes exposing { shapes }
+  connect Stores.Shapes exposing { shapes, size, strokeWidth }
   connect Stores.NewShape exposing { newShape, startCreatingLine, startCreatingArc, moveCreatingShapeEndPoint, completeCreatingShape }
   connect Stores.Ui exposing { inputMode }
-
-  property size : Number = 24
 
   state hoveredPoint : Maybe(Point) = Maybe::Nothing
 
@@ -92,6 +90,7 @@ component DrawingComponent {
   fun render : Html {
     <svg::svg
       viewBox="0 0 #{size} #{size}"
+      stroke-width="#{strokeWidth}"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
