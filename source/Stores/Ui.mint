@@ -1,13 +1,13 @@
 enum InputMode {
   Line
-  Arc
+  Semicircle
   Eraser
 }
 
 module InputMode {
   fun fromString (s : String) : InputMode {
     case (s) {
-      "Arc" => InputMode::Arc
+      "Semicircle" => InputMode::Semicircle
       "Eraser" => InputMode::Eraser
       => InputMode::Line
     }
@@ -16,7 +16,7 @@ module InputMode {
   fun toString (inputMode : InputMode) : String {
     case (inputMode) {
       InputMode::Line => "Line"
-      InputMode::Arc => "Arc"
+      InputMode::Semicircle => "Semicircle"
       InputMode::Eraser => "Eraser"
     }
   }

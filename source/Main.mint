@@ -60,8 +60,8 @@ component Main {
         </svg>
     },
     {
-      value = InputMode.toString(InputMode::Arc),
-      title = "Arc",
+      value = InputMode.toString(InputMode::Semicircle),
+      title = "Semicircle",
       content =
         <svg::icon viewBox="0 0 24 24">
           <path d="M6 22A5 5 0 0 1 22 6"/>
