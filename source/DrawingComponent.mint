@@ -45,6 +45,7 @@ component DrawingComponent {
           InputMode::Eraser => eraseShapeByClientPoint(event.clientX, event.clientY)
           InputMode::Line => startCreatingLine(svgPointFromEvent(event))
           InputMode::Semicircle => startCreatingArc(svgPointFromEvent(event), 180)
+          InputMode::QuarterCircle => startCreatingArc(svgPointFromEvent(event), 90)
         }
       }
     } else {

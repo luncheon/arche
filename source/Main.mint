@@ -60,6 +60,14 @@ component Main {
         </svg>
     },
     {
+      value = InputMode.toString(InputMode::QuarterCircle),
+      title = "Quarter Circle",
+      content =
+        <svg::icon viewBox="0 0 24 24">
+          <path d="M2 22A20 20 0 0 1 22 2"/>
+        </svg>
+    },
+    {
       value = InputMode.toString(InputMode::Semicircle),
       title = "Semicircle",
       content =
