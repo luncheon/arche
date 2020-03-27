@@ -12,15 +12,14 @@ store Stores.NewShape {
       }
   }
 
-  fun startCreatingArc (p : Point) : Promise(Never, Void) {
+  fun startCreatingArc (p : Point, degree : Number) : Promise(Never, Void) {
     next
       {
         newShape =
           Maybe::Just(Shape::Arc({
             p1 = p,
             p2 = p,
-            r = 0,
-            large = 0
+            degree = degree
           }))
       }
   }
@@ -39,12 +38,7 @@ store Stores.NewShape {
             (shape : Shape) : Shape {
               case (shape) {
                 Shape::Line line => Shape::Line({ line | p2 = p })
-
-                Shape::Arc arc =>
-                  Shape::Arc({ arc |
-                    p2 = p,
-                    r = distance(arc.p1, p) / 2
-                  })
+                Shape::Arc arc => Shape::Arc({ arc | p2 = p })
               }
             })
       }

@@ -44,7 +44,7 @@ component DrawingComponent {
         case (inputMode) {
           InputMode::Eraser => eraseShapeByClientPoint(event.clientX, event.clientY)
           InputMode::Line => startCreatingLine(svgPointFromEvent(event))
-          InputMode::Semicircle => startCreatingArc(svgPointFromEvent(event))
+          InputMode::Semicircle => startCreatingArc(svgPointFromEvent(event), 180)
         }
       }
     } else {
@@ -165,7 +165,7 @@ component ShapeComponent {
       Shape::Arc arc =>
         <path
           data-index="#{index}"
-          d="M#{arc.p1.x} #{arc.p1.y}A#{arc.r} #{arc.r} 0 #{arc.large} 1 #{arc.p2.x} #{arc.p2.y}"/>
+          d="#{Stores.Shapes.arcPath(arc)}"/>
     }
   }
 }
