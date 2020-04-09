@@ -28,7 +28,7 @@ module InputMode {
 store Stores.Ui {
   state inputMode : InputMode = InputMode::Line
 
-  fun setInputMode (mode : InputMode) : Promise(Never, Void) {
+  fun setInputMode (mode : InputMode) {
     next { inputMode = mode }
   }
 }

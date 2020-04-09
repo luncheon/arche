@@ -87,18 +87,14 @@ component Main {
     }
   ]
 
-  fun render : Html {
+  fun render {
     <main::main>
       <div style="display: flex">
         <RadioGroupComponent
           name="input-mode"
           options={OPTIONS}
           selectedValue={InputMode.toString(inputMode)}
-          onChange={
-            (value : String) : Promise(Never, Void) {
-              setInputMode(InputMode.fromString(value))
-            }
-          }/>
+          onChange={(value : String) { setInputMode(InputMode.fromString(value)) }}/>
 
         <div style="flex: auto"/>
 

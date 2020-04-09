@@ -1,8 +1,8 @@
 component GridHighlightComponent {
-  property size : Number = 0
+  property size : Number
   property point : Maybe(Point) = Maybe::Nothing
 
-  fun render : Html {
+  fun render {
     case (point) {
       Maybe::Just p =>
         <g fill="hsl(208, 100%, 84%)">

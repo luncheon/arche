@@ -1,7 +1,7 @@
 store Stores.NewShape {
   state newShape : Maybe(Shape) = Maybe::Nothing
 
-  fun startCreatingLine (p : Point) : Promise(Never, Void) {
+  fun startCreatingLine (p : Point) {
     next
       {
         newShape =
@@ -12,7 +12,7 @@ store Stores.NewShape {
       }
   }
 
-  fun startCreatingArc (p : Point, degree : Number) : Promise(Never, Void) {
+  fun startCreatingArc (p : Point, degree : Number) {
     next
       {
         newShape =
@@ -29,7 +29,7 @@ store Stores.NewShape {
       (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y))
   }
 
-  fun moveCreatingShapeEndPoint (p : Point) : Promise(Never, Void) {
+  fun moveCreatingShapeEndPoint (p : Point) {
     next
       {
         newShape =
@@ -44,7 +44,7 @@ store Stores.NewShape {
       }
   }
 
-  fun completeCreatingShape : Promise(Never, Void) {
+  fun completeCreatingShape {
     case (newShape) {
       Maybe::Just shape =>
         sequence {
@@ -56,7 +56,7 @@ store Stores.NewShape {
     }
   }
 
-  fun cancelCreatingShape : Promise(Never, Void) {
+  fun cancelCreatingShape {
     next { newShape = Maybe::Nothing }
   }
 }

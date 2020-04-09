@@ -6,6 +6,7 @@ component DrawingComponent {
   state hoveredPoint : Maybe(Point) = Maybe::Nothing
 
   style svg {
+    touch-action: none;
     if (inputMode == InputMode::Eraser) {
       cursor: arrow;
     } else {
@@ -14,7 +15,7 @@ component DrawingComponent {
   }
 
   fun svgPointFromEvent (event : Html.Event) : Point {
-    decode `
+    `
       ((event) => {
         const clientPoint = event.currentTarget.createSVGPoint()
         clientPoint.x = event.clientX
@@ -24,19 +25,20 @@ component DrawingComponent {
         svgPoint.y = #{Math.clamp(1, size - 1)}(Math.round(svgPoint.y))
         return svgPoint
       })(#{event})
-    ` as Point
-    |> Result.withDefault({
-      x = -1,
-      y = -1
-    })
+    `
+    |> Result.withDefault(
+      {
+        x = -1,
+        y = -1
+      })
   }
 
-  fun eraseShapeByClientPoint (clientX : Number, clientY : Number) : Promise(Never, Void) {
+  fun eraseShapeByClientPoint (clientX : Number, clientY : Number) {
     Stores.Shapes.removeShapeAt(
       `+(document.elementFromPoint(#{clientX}, #{clientY})?.getAttribute('data-index') ?? -1)`)
   }
 
-  fun onPointerDown (event : Html.Event) : Promise(Never, Void) {
+  fun onPointerDown (event : Html.Event) {
     if (event.button == 0) {
       sequence {
         `#{event.currentTarget}.setPointerCapture(#{event}.event.pointerId)`
@@ -53,7 +55,7 @@ component DrawingComponent {
     }
   }
 
-  fun onPointerMove (event : Html.Event) : Promise(Never, Void) {
+  fun onPointerMove (event : Html.Event) {
     if (inputMode == InputMode::Eraser) {
       if (`#{event.currentTarget}.hasPointerCapture(#{event}.event.pointerId)`) {
         eraseShapeByClientPoint(event.clientX, event.clientY)
@@ -76,7 +78,7 @@ component DrawingComponent {
     }
   }
 
-  fun onPointerUp (event : Html.Event) : Promise(Never, Void) {
+  fun onPointerUp (event : Html.Event) {
     if (`#{event.currentTarget}.hasPointerCapture(#{event}.event.pointerId)`) {
       completeCreatingShape()
     } else {
@@ -84,19 +86,18 @@ component DrawingComponent {
     }
   }
 
-  fun onPointerLeave (event : Html.Event) : Promise(Never, Void) {
+  fun onPointerLeave (event : Html.Event) {
     next { hoveredPoint = Maybe::Nothing }
   }
 
-  fun render : Html {
+  fun render {
     <svg::svg
       viewBox="0 0 #{size} #{size}"
       stroke-width="#{strokeWidth}"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      onPointerLeave={onPointerLeave}
-      style="touch-action: none">
+      onPointerLeave={onPointerLeave}>
 
       <GridComponent size={size}/>
 
@@ -109,7 +110,7 @@ component DrawingComponent {
         <{
           shapes
           |> Array.mapWithIndex(
-            (shape : Shape, index : Number) : Html {
+            (shape : Shape, index : Number) {
               <ShapeComponent
                 shape={shape}
                 index={index}/>
@@ -138,22 +139,10 @@ component DrawingComponent {
 }
 
 component ShapeComponent {
-  property shape : Shape = Shape::Line({
-    p1 =
-      {
-        x = -1,
-        y = -1
-      },
-    p2 =
-      {
-        x = -1,
-        y = -1
-      }
-  })
+  property shape : Shape
+  property index = -1
 
-  property index : Number = -1
-
-  fun render : Html {
+  fun render {
     case (shape) {
       Shape::Line line =>
         <line

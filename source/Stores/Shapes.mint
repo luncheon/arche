@@ -1,7 +1,7 @@
 store Stores.Shapes {
-  state shapes : Array(Shape) = []
-  state size : Number = 24
-  state strokeWidth : Number = 2
+  state shapes = []
+  state size = 24
+  state strokeWidth = 2
 
   fun arcPath (arc : Arc) : String {
     "M#{arc.p1.x} #{arc.p1.y}A#{r} #{r} 0 #{large} 1 #{arc.p2.x} #{arc.p2.y}"
@@ -41,11 +41,11 @@ store Stores.Shapes {
     "data:image/svg+xml," + `encodeURIComponent(#{asSvgFileContent})`
   }
 
-  fun appendShape (shape : Shape) : Promise(Never, Void) {
+  fun appendShape (shape : Shape) {
     next { shapes = Array.push(shape, shapes) }
   }
 
-  fun removeShapeAt (index : Number) : Promise(Never, Void) {
+  fun removeShapeAt (index : Number) {
     next { shapes = Array.deleteAt(index, shapes) }
   }
 }

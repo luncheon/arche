@@ -1,5 +1,5 @@
 component GridComponent {
-  property size : Number = 0
+  property size : Number
 
   style grid-point (x : Number, y : Number) {
     if (x % 2 == 0 && y % 2 == 0) {
@@ -9,7 +9,7 @@ component GridComponent {
     }
   }
 
-  fun render : Html {
+  fun render {
     <g>
       for (y of Array.range(1, size - 1)) {
         <>

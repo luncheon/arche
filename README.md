@@ -16,5 +16,5 @@ mint start --auto-format
 ## Build
 
 ```bash
-rm -rf docs/ dist/ && mint build -r --skip-service-worker && rm dist/*.png && cp assets/icon.png dist/ && mv dist/ docs/
+rm -rf docs/ dist/ && mint build -r --skip-icons --skip-service-worker && cp assets/icon.png dist/ && mv dist/ docs/
 ```

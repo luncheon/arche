@@ -5,12 +5,11 @@ record RadioGroupOption {
 }
 
 component RadioGroupComponent {
-  property name : String = ""
-  property options : Array(RadioGroupOption) = []
-  property selectedValue : String = ""
+  property name : String
+  property options : Array(RadioGroupOption)
+  property selectedValue = ""
 
-  property onChange : Function(String, Promise(Never, Void)) =
-    (value : String) : Promise(Never, Void) { Promise.never() }
+  property onChange = (value : String) { Promise.never() }
 
   style label (active : Bool) {
     margin: 12px 8px;
@@ -38,10 +37,10 @@ component RadioGroupComponent {
     }
   }
 
-  fun render : Html {
+  fun render {
     <div
       onChange={
-        (event : Html.Event) : Promise(Never, Void) {
+        (event : Html.Event) {
           if (`#{event.target}.checked`) {
             onChange(Dom.getValue(event.target))
           } else {
